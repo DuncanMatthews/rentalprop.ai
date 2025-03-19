@@ -1,0 +1,69 @@
+---
+description: Standards for component implementation in Next.js 15
+globs: 
+---
+
+
+# Component Structure
+- Implement atomic design principles
+- Use consistent file organization
+- Follow single responsibility
+- Export named components
+
+# Type Definitions
+- Define explicit interfaces
+- Extend HTML attributes
+- Use proper generics
+- Document type constraints
+
+# Variant Patterns
+- Use class-variance-authority (cva)
+- Define consistent variants
+- Implement size variants
+- Use proper defaultVariants
+
+# Component Example
+```tsx
+import { cn } from "@/lib/utils"
+import { VariantProps, cva } from "class-variance-authority"
+
+const componentVariants = cva("base-styles", {
+ variants: {
+   variant: {
+     default: "bg-primary text-primary-foreground",
+     outline: "border border-input bg-background",
+     destructive: "bg-destructive text-destructive-foreground"
+   },
+   size: {
+     default: "h-10 px-4 py-2",
+     sm: "h-8 px-3",
+     lg: "h-12 px-8"
+   }
+ },
+ defaultVariants: {
+   variant: "default",
+   size: "default"
+ }
+})
+
+interface ComponentProps 
+ extends React.HTMLAttributes<HTMLElement>,
+ VariantProps<typeof componentVariants> {
+ asChild?: boolean
+}
+
+export function Component({
+ className,
+ variant,
+ size,
+ asChild = false,
+ ...props
+}: ComponentProps) {
+ const Comp = asChild ? Slot : "div"
+ return (
+   <Comp
+     className={cn(componentVariants({ variant, size, className }))}
+     {...props}
+   />
+ )
+}

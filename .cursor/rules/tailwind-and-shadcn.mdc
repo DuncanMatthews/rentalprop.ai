@@ -1,0 +1,38 @@
+---
+description: Standards for Tailwind CSS with shadcn/ui integration
+globs: 
+---
+# Tailwind Rules
+- Use only core Tailwind utility classes
+- No arbitrary values in square brackets (e.g., h-[500px])
+- No JIT or custom values
+- Follow shadcn/ui component styling patterns
+
+# Core Class Examples
+## Spacing
+- Use: mt-6, p-4, mb-8
+- Not: mt-[27px], p-[15px]
+
+## Sizing
+- Use: h-64, w-full, text-lg
+- Not: h-[600px], w-[42rem], text-[17px]
+
+## Layout
+- Use: grid, flex, gap-4
+- Not: gap-[10px]
+
+## Typography
+- Use: text-sm, text-lg, text-2xl
+- Not: text-[22px]
+
+# shadcn/ui Integration
+- Import components from @/components/ui
+- Use shadcn/ui preset classes
+- Maintain consistent component structure
+- Follow shadcn/ui theming system
+
+# Component Styling
+- Place utility classes before component classes
+- Group related utilities together
+- Use logical class ordering
+- Maintain readability in class lists

@@ -1,0 +1,48 @@
+---
+description: Standards for evaluating and planning code implementation before writing
+globs: 
+---
+# Pre-Implementation Checklist
+- Consider if code is truly needed
+- Evaluate existing solutions
+- Assess impact on codebase
+- Check for duplicate functionality
+
+# Analysis Requirements
+- Document current implementation
+- List pain points/limitations
+- Define clear improvements
+- Measure potential impact
+
+# Evaluation Metrics
+- Maintenance cost
+- Bundle size impact 
+- Performance implications
+- Developer experience
+- Testing complexity
+
+# Alternative Approaches
+- Research existing patterns
+- Check current codebase
+- Review similar solutions
+- Consider simpler options
+
+# Impact Assessment
+- Note affected components
+- List required changes
+- Document dependencies
+- Identify potential risks
+
+# Implementation Questions
+- Is new code actually needed?
+- Can existing code be improved?
+- Will this increase complexity?
+- Is there a simpler solution?
+- Does benefit outweigh cost?
+
+# Success Criteria
+- Clear performance gains
+- Reduced complexity
+- Better maintainability
+- Improved developer experience
+- Measurable improvements

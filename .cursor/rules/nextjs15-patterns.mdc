@@ -1,0 +1,36 @@
+---
+description: Standards for Next.js 15 component and route design patterns
+globs: 
+---
+# Component Architecture
+- Default to Server Components
+- Use 'use client' only when needed
+- Implement proper Suspense boundaries
+- Follow atomic design principles
+
+# Route Structure
+- Use nested layouts appropriately
+- Implement parallel routes correctly
+- Handle loading/error states
+- Maintain clean URL structure
+
+# Data Patterns
+- Fetch data in Server Components
+- Use proper caching strategies
+- Implement streaming where beneficial
+- Handle loading states with Suspense
+
+# Client Optimization
+- Minimize client bundle size
+- Use selective hydration
+- Implement proper error boundaries
+- Follow proper component composition
+
+# Type Safety
+- Use Zod for API validation
+- Implement proper interfaces
+- Maintain strict type checking
+- Define clear prop types
+
+
+

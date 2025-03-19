@@ -1,0 +1,34 @@
+---
+description: 
+globs: 
+---
+
+
+# Main Documentation
+Use the @server-components.md for RSC architecture patterns and usage
+Use the @component-structure.md for proper component organization
+Use the @state-patterns.md for state management approaches
+Check the @runtime-apis.md for async runtime operations
+Check the @performance.md for optimization guidelines
+Use the @data-fetching.md for data management patterns
+Use the @type-safety.md for TypeScript implementation
+
+// .cursor/server-components.mdc
+Description: React Server Components implementation patterns
+Globs: modern-web-dev/frameworks/react-next/server/*
+
+# Main Documentation
+Use the @rsc-defaults.md for default server component patterns
+Use the @client-boundaries.md for 'use client' directive usage
+Check the @optimization.md for bundle size management
+Use the @streaming.md for progressive enhancement patterns
+
+// .cursor/state-patterns.mdc
+Description: State management approaches for React 19 and Next.js 15
+Globs: modern-web-dev/frameworks/react-next/state/*
+
+# Main Documentation
+Use the @action-state.md for useActionState implementation
+Use the @form-status.md for useFormStatus patterns
+Check the @url-state.md for nuqs usage examples
+Use the @client-state.md for minimal client-side state patterns
