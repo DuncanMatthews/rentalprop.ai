@@ -9,17 +9,21 @@ datasource db {
 }
 
 model User {
-  id            String    @id @db.Uuid
-  email         String    @unique
-  firstName     String
-  lastName      String
-  phone         String?
-  numberOfUnits Int       @default(1)
-  displayName   String?
-  role          UserRole  @default(TENANT)
-  accountType   String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  id               String     @id @db.Uuid
+  email            String     @unique
+  firstName        String
+  lastName         String
+  phone            String?
+  numberOfUnits    Int        @default(1)
+  displayName      String?
+  role             UserRole   @default(TENANT)
+  accountType      String?
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+  units            Unit[]     @relation("UnitTenants")
+  // Add these two lines:
+  ownedProperties  Property[] @relation("PropertyOwner")
+  managedProperties Property[] @relation("PropertyManagers")
 
   @@map("users")
 }
@@ -30,4 +34,83 @@ enum UserRole {
   MANAGER
   TENANT
   MAINTENANCE
+}
+
+
+enum PropertyTypeEnum {
+  SINGLE_UNIT
+  MULTI_UNIT
+}
+
+enum UnitTypeEnum {
+  STUDIO
+  ONE_BEDROOM
+  TWO_BEDROOM
+  THREE_BEDROOM
+  FOUR_BEDROOM
+  PENTHOUSE
+  LOFT
+  OFFICE
+  RETAIL
+  WAREHOUSE
+  COMMERCIAL
+}
+
+model Property {
+  id            String          @id @default(uuid()) @db.Uuid
+  name          String
+  address       String
+  city          String
+  state         String
+  zipCode       String          @map("zip_code")
+  propertyType  PropertyTypeEnum
+  yearBuilt     Int?
+  totalUnits    Int             @default(1) @map("total_units")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  units         Unit[]
+  owner         User?           @relation("PropertyOwner", fields: [ownerId], references: [id])
+  ownerId       String?         @map("owner_id") @db.Uuid
+  managers      User[]          @relation("PropertyManagers")
+  images        PropertyImage[]
+
+  @@map("properties")
+}
+
+model PropertyImage {
+  id          String    @id @default(uuid()) @db.Uuid
+  url         String
+  caption     String?
+  isPrimary   Boolean   @default(false) @map("is_primary")
+  propertyId  String    @map("property_id") @db.Uuid
+  property    Property  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("property_images")
+}
+model Unit {
+  id          String       @id @default(uuid()) @db.Uuid
+  unitNumber  String       @map("unit_number")
+  unitType    UnitTypeEnum
+  propertyId  String       @map("property_id") @db.Uuid
+  property    Property     @relation(fields: [propertyId], references: [id])
+  bedrooms    Int
+  bathrooms   Decimal      @db.Decimal(3, 1)
+  squareFeet  Int          @map("square_feet")
+  rent        Decimal      @db.Decimal(10, 2)
+  status      UnitStatus   @default(VACANT)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  tenants     User[]       @relation("UnitTenants")
+
+  @@unique([propertyId, unitNumber])
+  @@map("units")
+}
+
+enum UnitStatus {
+  VACANT
+  OCCUPIED
+  MAINTENANCE
+  RESERVED
 }

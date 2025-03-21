@@ -1,0 +1,46 @@
+---
+description: Data Fetching and Authentication Guidelines
+globs: 
+alwaysApply: false
+---
+# Data Fetching and Authentication Guidelines
+
+## Database and ORM
+- **Prisma ORM** for database access and type-safe queries
+- **PostgreSQL** as the primary database (via `DATABASE_URL` and `DIRECT_URL` environment variables)
+- Schema-first approach with Prisma schema for model definitions
+
+## Data Model
+- Rich property management system with Users, Properties, Units, and related entities
+- Role-based access control (ADMIN, OWNER, MANAGER, TENANT, MAINTENANCE)
+- Relational data structure with proper foreign keys and referential integrity
+
+## Authentication
+- Session-based authentication (likely using NextAuth.js or similar)
+- User identity accessible via `auth()` utility
+- Role-based authorization enforced through the `UserRole` enum
+- Relationship mapping between users and properties (ownership, management, tenancy)
+
+## Data Fetching Patterns
+- Server Components for data fetching directly from the database
+- Async/await pattern for database operations
+- Selective data retrieval using Prisma's `select` and `where` clauses
+- Relationship traversal (e.g., properties owned by users, units within properties)
+
+## Server Actions
+- Server-side form processing with `'use server'` actions
+- FormData handling for property creation and updates
+- Structured response objects with success/error states
+
+## Best Practices
+1. Use Prisma's type-safe queries to prevent runtime errors
+2. Leverage server components for direct database access
+3. Apply role-based filtering when fetching data (e.g., only show owned properties)
+4. Use hidden form fields for associating resources with the current user
+5. Implement proper error handling and validation in server actions
+6. Enforce access control at the data access layer
+
+## Naming Conventions
+- Database tables: snake_case plurals (e.g., `properties`, `users`)
+- Prisma models: PascalCase singulars (e.g., `Property`, `User`)
+- Database fields: camelCase in code, snake_case in database (via `@map`)
